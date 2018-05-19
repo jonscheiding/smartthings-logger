@@ -1,4 +1,11 @@
 {
   "extends": ["eslint:recommended", "google"],
-  "parser": "babel-eslint"
+  "env": {
+    "jest": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "jest"
+  ]
 }
