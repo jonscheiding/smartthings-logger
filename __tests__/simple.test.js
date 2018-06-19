@@ -24,7 +24,7 @@ test(`Observe log messages coming through`, async () => {
 
   const cookieHeader = cookies.map((c) => c.name + '=' + c.value).join(';');
 
-  console.log(`Authenticated successfully with cookies '${cookieHeader}.`)
+  console.log(`Authenticated successfully with cookies '${cookieHeader}.`);
 
   const socket = new WebSocket(
     st.globals.websocket + 'client/' + st.globals.client,
