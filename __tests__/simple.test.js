@@ -7,7 +7,7 @@ import WebSocket from 'ws';
 dotenv.config();
 jest.setTimeout(30000);
 
-test(`Observe log messages coming through`, async () => {
+test.skip(`Observe log messages coming through`, async () => {
   const browser = new Nightmare({typeInterval: 1})
     .goto('http://ide.smartthings.com/ide/logs')
     .type('#username', process.env.SMARTTHINGS_USERNAME)
