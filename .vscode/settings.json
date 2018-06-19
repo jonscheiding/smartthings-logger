@@ -1,4 +1,6 @@
 {
   "eslint.packageManager": "yarn",
-  "eslint.enable": true
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": true,
+  "files.eol": "\n"
 }
