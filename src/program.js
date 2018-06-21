@@ -2,7 +2,8 @@ import dotenv from 'dotenv';
 import yargs from 'yargs';
 
 import LoginService from './LoginService';
-import IdeLoggerService from './IdeLoggerService';
+import IdeLoggerSocket from './IdeLoggerSocket';
+import LogProcessorService from './LogProcessorService';
 
 dotenv.config();
 
@@ -26,12 +27,11 @@ export default async function run(args) {
     .parse(args);
 
   const loginService = new LoginService(options.showBrowser);
-  const ideLoggerService = new IdeLoggerService();
-  ideLoggerService.on('logs', console.log);
 
   try {
     const connectionDetails = await loginService.login(options.username, options.password);
-    ideLoggerService.connect(connectionDetails);
+    const logProcessor = new LogProcessorService(new IdeLoggerSocket(connectionDetails));
+    logProcessor.on('logs', console.log);
   } catch (e) {
     console.error(e);
   }

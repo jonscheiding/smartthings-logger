@@ -2,8 +2,6 @@ import Nightmare from 'nightmare';
 import dotenv from 'dotenv';
 import WebSocket from 'ws';
 
-/* eslint-disable no-console */
-
 dotenv.config();
 jest.setTimeout(30000);
 

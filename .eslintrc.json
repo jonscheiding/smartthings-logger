@@ -10,6 +10,7 @@
     "jest"
   ],
   "rules": {
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "no-restricted-syntax": "off"
   }
 }
