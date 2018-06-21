@@ -2,10 +2,11 @@ import dotenv from 'dotenv';
 import yargs from 'yargs';
 
 import LoginService from './LoginService';
+import IdeLoggerService from './IdeLoggerService';
 
 dotenv.config();
 
-export default function run(args) {
+export default async function run(args) {
   const options = yargs
     .env('SMARTTHINGS')
     .option('username', {
@@ -25,7 +26,13 @@ export default function run(args) {
     .parse(args);
 
   const loginService = new LoginService(options.showBrowser);
-  loginService.login(options.username, options.password)
-    .then(console.log)
-    .catch(console.log);
+  const ideLoggerService = new IdeLoggerService();
+  ideLoggerService.on('logs', console.log);
+
+  try {
+    const connectionDetails = await loginService.login(options.username, options.password);
+    ideLoggerService.connect(connectionDetails);
+  } catch (e) {
+    console.error(e);
+  }
 }
