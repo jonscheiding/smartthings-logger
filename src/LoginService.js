@@ -1,15 +1,9 @@
 import Nightmare from 'nightmare';
 
+import ConnectionDetails from './ConnectionDetails';
 import errors from './errors';
 
-export class ConnectionDetails {
-  constructor(url, headers) {
-    this.url = url;
-    this.headers = headers;
-  }
-}
-
-export class LoginService {
+export default class LoginService {
   constructor(showBrowser = false) {
     this.browser = new Nightmare({
       typeInterval: 1,

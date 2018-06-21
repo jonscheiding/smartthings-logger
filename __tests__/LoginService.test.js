@@ -1,4 +1,4 @@
-import { LoginService } from '../src/login-service';
+import LoginService from '../src/LoginService';
 
 test('constructor creates an instance', () => {
   const service = new LoginService();

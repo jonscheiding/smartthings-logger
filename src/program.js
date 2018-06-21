@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import yargs from 'yargs';
 
-import { LoginService } from './login-service';
+import LoginService from './LoginService';
 
 dotenv.config();
 
