@@ -7,8 +7,8 @@ import WebSocket from 'ws';
 dotenv.config();
 jest.setTimeout(30000);
 
-test.skip(`Observe log messages coming through`, async () => {
-  const browser = new Nightmare({typeInterval: 1})
+test.skip('Observe log messages coming through', async () => {
+  const browser = new Nightmare({ typeInterval: 1 })
     .goto('http://ide.smartthings.com/ide/logs')
     .type('#username', process.env.SMARTTHINGS_USERNAME)
     .click('#next-step-btn')
@@ -22,22 +22,22 @@ test.skip(`Observe log messages coming through`, async () => {
   const st = await browser.evaluate(() => ST);
   await browser.end();
 
-  const cookieHeader = cookies.map((c) => c.name + '=' + c.value).join(';');
+  const cookieHeader = cookies.map(c => `${c.name}=${c.value}`).join(';');
 
   console.log(`Authenticated successfully with cookies '${cookieHeader}.`);
 
   const socket = new WebSocket(
-    st.globals.websocket + 'client/' + st.globals.client,
+    `${st.globals.websocket}client/${st.globals.client}`,
     {
       headers: {
-        'Cookie': cookieHeader,
+        Cookie: cookieHeader,
       },
-    }
+    },
   );
 
   socket.on('message', console.log);
 
-  await new Promise((resolve) => setTimeout(resolve, 20000));
+  await new Promise(resolve => setTimeout(resolve, 20000));
 
   socket.close();
 });

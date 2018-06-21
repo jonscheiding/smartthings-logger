@@ -1,3 +1,5 @@
-module.exports = function() {
-  require('dotenv').config();
+const dotenv = require('dotenv');
+
+module.exports = function jestConfig() {
+  dotenv.config();
 };

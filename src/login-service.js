@@ -1,8 +1,15 @@
 import Nightmare from 'nightmare';
 
+export class ConnectionDetails {
+  constructor(url, headers) {
+    this.url = url;
+    this.headers = headers;
+  }
+}
+
 export class LoginService {
   constructor(showBrowser = false) {
-    this._browser = new Nightmare({
+    this.browser = new Nightmare({
       typeInterval: 1,
       show: showBrowser,
       waitTimeout: 5000,
@@ -14,7 +21,7 @@ export class LoginService {
       throw new Error('Username and password are required.');
     }
 
-    const request = this._browser
+    const request = this.browser
       .goto('http://ide.smartthings.com/ide/logs')
       .wait('#username')
       .type('#username', process.env.SMARTTHINGS_USERNAME)
@@ -31,16 +38,9 @@ export class LoginService {
 
     const url = `${st.globals.websocket}client/${st.globals.client}`;
     const headers = {
-      'Cookie': cookies.map((c) => c.name + '=' + c.value).join(';'),
+      Cookie: cookies.map(c => `${c.name}=${c.value}`).join(';'),
     };
 
     return new ConnectionDetails(url, headers);
-  }
-}
-
-export class ConnectionDetails {
-  constructor(url, headers) {
-    this.url = url;
-    this.headers = headers;
   }
 }

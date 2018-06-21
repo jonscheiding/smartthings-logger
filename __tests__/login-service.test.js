@@ -1,12 +1,12 @@
-import {LoginService} from '../src/login-service';
+import { LoginService } from '../src/login-service';
 
-test(`constructor creates an instance`, () => {
+test('constructor creates an instance', () => {
   const service = new LoginService();
 
   expect(service).toBeInstanceOf(LoginService);
 });
 
-test(`login() throws if username or password are not provided`, () => {
+test('login() throws if username or password are not provided', () => {
   const service = new LoginService();
   const loginResult = service.login();
 
@@ -14,11 +14,12 @@ test(`login() throws if username or password are not provided`, () => {
     .toThrow('Username and password are required.');
 });
 
-test(`login() returns URL and Cookie header if login is successful`, async () => {
+test('login() returns URL and Cookie header if login is successful', async () => {
   const service = new LoginService();
   const loginResult = await service.login(
     process.env.SMARTTHINGS_USERNAME,
-    process.env.SMARTTHINGS_PASSWORD);
+    process.env.SMARTTHINGS_PASSWORD,
+  );
 
   expect(loginResult.url).toMatch(/wss:\/\/(.*)\.smartthings.com\/client\/.*/);
   expect(loginResult.headers).toHaveProperty('Cookie');
