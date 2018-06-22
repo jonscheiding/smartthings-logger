@@ -9,7 +9,7 @@ describe('LoginProcessorService', () => {
   beforeEach(() => {
     emitter = new EventEmitter();
     service = new LogProcessorService(emitter);
-    handler = jest.fn(console.log);
+    handler = jest.fn();
 
     service.on('logs', handler);
   });
