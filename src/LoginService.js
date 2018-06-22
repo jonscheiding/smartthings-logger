@@ -1,11 +1,10 @@
-import Nightmare from 'nightmare';
+import NightmareSmartThings from './NightmareSmartThings';
 
 import ConnectionDetails from './ConnectionDetails';
-import errors from './errors';
 
 export default class LoginService {
   constructor(showBrowser = false) {
-    this.browser = new Nightmare({
+    this.browser = new NightmareSmartThings({
       typeInterval: 1,
       show: showBrowser,
       waitTimeout: 5000,
@@ -13,29 +12,27 @@ export default class LoginService {
     });
   }
 
-  requestIdeConsole(username, password) {
-    return this.browser
-      .goto('http://ide.smartthings.com/ide/logs')
-      .wait('#username')
-      .type('#username', username)
-      .click('#next-step-btn')
-      .wait('#password')
-      .type('#password', password)
-      .click('#login-user-btn')
-      .wait('#ide-console');
-  }
-
   async login(username, password) {
     if (!username || !password) {
       throw new Error('Username and password are required.');
     }
 
-    const request = this.requestIdeConsole(username, password);
+    const request = this.browser.gotoIdeConsole(username, password);
 
     try {
       const cookies = await request.cookies.get();
       /* eslint-disable-next-line no-undef */
       const st = await request.evaluate(() => ST);
+
+      if (cookies.filter(c => c.name === 'JSESSIONID' || c.name === '_JTKN').length !== 2) {
+        throw new Error(`Expected cookies to include JSESSIONID and _JTKN; the response had cookies [${
+          cookies.map(c => `'${c.name}'`).join(', ')
+        }].`);
+      }
+
+      if (!(st instanceof Object) || !(st.globals instanceof Object) || !('websocket' in st.globals) || !('client' in st.globals)) {
+        throw new Error(`Unexpected result evaluating the console page: ST = '${st}'.`);
+      }
 
       const url = `${st.globals.websocket}client/${st.globals.client}`;
       const headers = {
@@ -44,7 +41,8 @@ export default class LoginService {
 
       return new ConnectionDetails(url, headers);
     } catch (e) {
-      throw errors.wrap(e, 'Error logging in to SmartThings.  Please check your username and password.');
+      e.message = `Error logging in to SmartThings.  Please check your username and password.\n${e.message}`;
+      throw e;
     } finally {
       await request.end();
     }
