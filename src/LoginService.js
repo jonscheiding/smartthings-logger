@@ -30,8 +30,8 @@ export default class LoginService {
         }].`);
       }
 
-      if (!(st instanceof Object) || !(st.globals instanceof Object) || !('websocket' in st.globals) || !('client' in st.globals)) {
-        throw new Error(`Unexpected result evaluating the console page: ST = '${st}'.`);
+      if (!st || !('globals' in st) || !('websocket' in st.globals) || !('client' in st.globals)) {
+        throw new Error(`Unexpected result evaluating the console page: ST = '${JSON.stringify(st)}'.`);
       }
 
       const url = `${st.globals.websocket}client/${st.globals.client}`;
