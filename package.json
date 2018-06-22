@@ -11,24 +11,23 @@
     "test:watch": "yarn test --watch"
   },
   "dependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.51",
     "babel-cli": "6.26.0",
-    "babel-eslint": "^8.2.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "dotenv": "^5.0.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.9.1",
     "nightmare": "^3.0.1",
     "ws": "^5.1.1",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1",
     "jest": "^22.4.4"
   }
 }
