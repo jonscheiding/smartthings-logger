@@ -1,11 +1,9 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import yargs from 'yargs';
 
 import LoginService from './LoginService';
 import IdeLoggerSocket from './IdeLoggerSocket';
 import LogProcessorService from './LogProcessorService';
-
-dotenv.config();
 
 export default async function run(args) {
   const options = yargs
