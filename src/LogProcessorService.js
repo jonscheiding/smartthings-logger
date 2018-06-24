@@ -1,4 +1,7 @@
+import debug from 'debug';
 import EventEmitter from 'events';
+
+const log = debug('st-logger');
 
 export default class LogProcessorService extends EventEmitter {
   constructor(ideSocket) {
@@ -9,6 +12,8 @@ export default class LogProcessorService extends EventEmitter {
   }
 
   onSocketMessage(data) {
+    log('raw event data %j', data);
+
     let dataAsObject;
     try {
       dataAsObject = JSON.parse(data);
@@ -24,8 +29,8 @@ export default class LogProcessorService extends EventEmitter {
 
     const { logs, ...otherData } = dataAsObject;
 
-    for (const log of logs) {
-      const flattenedLog = { ...log, ...otherData };
+    for (const l of logs) {
+      const flattenedLog = { ...l, ...otherData };
       this.emit('logs', flattenedLog);
     }
   }

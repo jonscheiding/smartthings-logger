@@ -1,9 +1,12 @@
-import 'dotenv/config';
+import debug from 'debug';
 import yargs from 'yargs';
 
 import LoginService from './LoginService';
 import IdeLoggerSocket from './IdeLoggerSocket';
 import LogProcessorService from './LogProcessorService';
+
+const logMessage = debug('st-logger:message');
+const log = debug('st-logger');
 
 export default async function run(args) {
   const options = yargs
@@ -29,8 +32,8 @@ export default async function run(args) {
   try {
     const connectionDetails = await loginService.login(options.username, options.password);
     const logProcessor = new LogProcessorService(new IdeLoggerSocket(connectionDetails));
-    logProcessor.on('logs', console.log);
+    logProcessor.on('logs', logs => logMessage('%j', logs));
   } catch (e) {
-    console.error(e);
+    log(e);
   }
 }

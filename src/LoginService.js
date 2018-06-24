@@ -1,6 +1,9 @@
-import NightmareSmartThings from './NightmareSmartThings';
+import debug from 'debug';
 
+import NightmareSmartThings from './NightmareSmartThings';
 import ConnectionDetails from './ConnectionDetails';
+
+const log = debug('st-logger');
 
 export default class LoginService {
   constructor(showBrowser = false) {
@@ -23,6 +26,8 @@ export default class LoginService {
       const cookies = await request.cookies.get();
       /* eslint-disable-next-line no-undef */
       const st = await request.evaluate(() => ST);
+
+      log('%j', { cookies, st });
 
       if (cookies.filter(c => c.name === 'JSESSIONID' || c.name === '_JTKN').length !== 2) {
         throw new Error(`Expected cookies to include JSESSIONID and _JTKN; the response had cookies [${
