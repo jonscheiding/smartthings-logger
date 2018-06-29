@@ -36,7 +36,7 @@ export default async function run(args) {
 
     const logProcessor = new LogProcessorService(new IdeLoggerSocket(connectionDetails));
     logProcessor.on('logs', (logs) => {
-      logLogs('logs-received', { logs });
+      logLogs('logs-received', logs);
     });
   } catch (e) {
     logMessage('logger-error', e);

@@ -2,6 +2,10 @@ import debug from 'debug';
 import util from 'util';
 
 export default function debugStructured(debugInstance) {
+  if (debugInstance.structured) {
+    return;
+  }
+
   const inner = { ...debugInstance };
 
   function formatArgs(args) {
@@ -14,15 +18,16 @@ export default function debugStructured(debugInstance) {
     inner.formatArgs.call(this, args);
 
     args.splice(0, args.length);
-    args.push('%j', structured);
+    args.push(structured);
   }
 
-  function log(...args) {
-    process.stdout.write(`${util.format(...args)}\n`);
+  function log(structured) {
+    process.stdout.write(`${util.format('%j', structured)}\n`);
   }
 
   // eslint-disable-next-line no-param-reassign
-  [debugInstance.formatArgs, debugInstance.log] = [formatArgs, log];
+  [debugInstance.formatArgs, debugInstance.log, debugInstance.structured]
+    = [formatArgs, log, true];
 }
 
 if (process.env.DEBUG_STRUCTURED === '1') {

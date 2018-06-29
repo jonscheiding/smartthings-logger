@@ -8,12 +8,14 @@
     "lint": "eslint .",
     "start": "babel-node index.js",
     "test": "jest --verbose",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "pipe:bunyan": "babel-node src/logging/bunyan-pipe.js | bunyan"
   },
   "dependencies": {
     "babel-cli": "6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "bunyan": "^1.8.12",
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
     "nightmare": "^3.0.1",
