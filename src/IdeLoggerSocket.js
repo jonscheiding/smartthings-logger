@@ -13,6 +13,6 @@ export default class IdeLoggerSocket extends WebSocket {
   }
 
   static logWebSocketEvent(name, data) {
-    log({ name, data });
+    log('websocket-message', { name, data });
   }
 }

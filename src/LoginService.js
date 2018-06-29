@@ -20,6 +20,8 @@ export default class LoginService {
       throw new Error('Username and password are required.');
     }
 
+    log('login-started');
+
     const request = this.browser.gotoIdeConsole(username, password);
 
     try {
@@ -27,7 +29,7 @@ export default class LoginService {
       /* eslint-disable-next-line no-undef */
       const st = await request.evaluate(() => ST);
 
-      log('%j', { cookies, st });
+      log('login-successful', { cookies, st });
 
       if (cookies.filter(c => c.name === 'JSESSIONID' || c.name === '_JTKN').length !== 2) {
         throw new Error(`Expected cookies to include JSESSIONID and _JTKN; the response had cookies [${
