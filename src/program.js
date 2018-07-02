@@ -1,9 +1,9 @@
 import debug from 'debug';
 import yargs from 'yargs';
 
-import LoginService from './LoginService';
-import IdeLoggerSocket from './IdeLoggerSocket';
-import LogProcessorService from './LogProcessorService';
+import LoginService from './smartthings-ide/LoginService';
+import IdeLoggerSocket from './smartthings-ide/IdeLoggerSocket';
+import LogProcessorService from './smartthings-ide/LogProcessorService';
 
 const logLogs = debug('st-logger:logs');
 const logMessage = debug('st-logger');
