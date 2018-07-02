@@ -6,10 +6,9 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "start": "babel-node index.js",
+    "start": "babel-node index.js | bunyan",
     "test": "jest --verbose",
-    "test:watch": "yarn test --watch",
-    "pipe:bunyan": "babel-node src/logging/bunyan-pipe.js | bunyan"
+    "test:watch": "yarn test --watch"
   },
   "dependencies": {
     "babel-cli": "6.26.0",

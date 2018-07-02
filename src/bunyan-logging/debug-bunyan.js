@@ -3,9 +3,9 @@ import debug from 'debug';
 
 import debugStructured from './debug-structured';
 
-debugStructured(debug);
-
 export default function enableBunyan() {
+  debugStructured(debug);
+
   const logger = bunyan.createLogger({
     name: 'smartthings',
   });
@@ -32,6 +32,6 @@ export default function enableBunyan() {
   };
 }
 
-if (process.env.DEBUG_BUNYAN === '1') {
+if (process.env.DEBUG_BUNYAN) {
   enableBunyan();
 }

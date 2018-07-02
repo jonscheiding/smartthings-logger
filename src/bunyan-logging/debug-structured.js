@@ -30,6 +30,6 @@ export default function debugStructured(debugInstance) {
     = [formatArgs, log, true];
 }
 
-if (process.env.DEBUG_STRUCTURED === '1') {
+if (process.env.DEBUG_STRUCTURED) {
   debugStructured(debug);
 }
