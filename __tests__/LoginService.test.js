@@ -1,4 +1,4 @@
-import LoginService from '../src/LoginService';
+import LoginService from '../src/smartthings-ide/LoginService';
 
 let mockGotoIdeConsole;
 let mockEnd;
@@ -18,7 +18,7 @@ const correctEvaluateResult = {
   },
 };
 
-jest.mock('../src/NightmareSmartThings', () =>
+jest.mock('../src/smartthings-ide/NightmareSmartThings', () =>
   jest.fn().mockImplementation(() => ({
     gotoIdeConsole: mockGotoIdeConsole,
   })));

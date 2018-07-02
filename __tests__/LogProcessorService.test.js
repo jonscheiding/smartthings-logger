@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import LogProcessorService from '../src/LogProcessorService';
+import LogProcessorService from '../src/smartthings-ide/LogProcessorService';
 
 let emitter;
 let handler;
