@@ -1,12 +1,12 @@
 import debug from 'debug';
 import yargs from 'yargs';
 
-import LoginService from './LoginService';
-import IdeLoggerSocket from './IdeLoggerSocket';
-import LogProcessorService from './LogProcessorService';
+import LoginService from './smartthings-ide/LoginService';
+import IdeLoggerSocket from './smartthings-ide/IdeLoggerSocket';
+import LogProcessorService from './smartthings-ide/LogProcessorService';
 
-const logMessage = debug('st-logger:message');
-const log = debug('st-logger');
+const logLogs = debug('st-logger:logs');
+const logMessage = debug('st-logger');
 
 export default async function run(args) {
   const options = yargs
@@ -31,9 +31,14 @@ export default async function run(args) {
 
   try {
     const connectionDetails = await loginService.login(options.username, options.password);
+
+    logMessage('connecting-socket', connectionDetails);
+
     const logProcessor = new LogProcessorService(new IdeLoggerSocket(connectionDetails));
-    logProcessor.on('logs', logs => logMessage('%j', logs));
+    logProcessor.on('logs', (logs) => {
+      logLogs('logs-received', logs);
+    });
   } catch (e) {
-    log(e);
+    logMessage('logger-error', e);
   }
 }

@@ -1,7 +1,7 @@
-import debug from 'debug';
 import EventEmitter from 'events';
+import debug from 'debug';
 
-const log = debug('st-logger');
+const log = debug('st-logger:logs:raw');
 
 export default class LogProcessorService extends EventEmitter {
   constructor(ideSocket) {
@@ -12,7 +12,7 @@ export default class LogProcessorService extends EventEmitter {
   }
 
   onSocketMessage(data) {
-    log('raw event data %j', data);
+    log('logs-received', data);
 
     let dataAsObject;
     try {

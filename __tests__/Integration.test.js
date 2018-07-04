@@ -1,4 +1,4 @@
-import LoginService from '../src/LoginService';
+import LoginService from '../src/smartthings-ide/LoginService';
 
 const {
   RUN_SMARTTHINGS_INTEGRATION_TESTS,
