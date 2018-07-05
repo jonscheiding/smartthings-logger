@@ -5,14 +5,14 @@ import bunyanLogger from './bunyan';
 
 const inner = { ...debug };
 
-function log(data) {
+function log(...data) {
   const logger = this.bunyan || debug.bunyan;
   if (!logger) {
-    inner.log.call(this, data);
+    inner.log.apply(this, data);
     return;
   }
 
-  const { namespace, args } = data;
+  const { namespace, args } = data[0];
   const [event, ...context] = args || [];
 
   let logMessage = event;
