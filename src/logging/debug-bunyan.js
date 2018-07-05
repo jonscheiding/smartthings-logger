@@ -19,9 +19,17 @@ function log(data) {
   let result;
 
   if (context.length === 1 && typeof (context[0].msg) === 'string') {
-    const { msg, level, ...rest } = context[0];
+    const {
+      msg, level, time, ...rest
+    } = context[0];
+
     logMessage = msg || logMessage;
-    result = { originalLevel: level, ...rest };
+
+    result = {
+      originalLevel: level,
+      originalTime: time,
+      ...rest,
+    };
   } else {
     result = context;
   }
